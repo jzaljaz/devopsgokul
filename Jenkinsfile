@@ -1,11 +1,13 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS 22'
+    environment {
+        IMAGE_NAME = "react-app"
+        CONTAINER_NAME = "competent_thompson"
     }
 
     stages {
+
         stage('Clone Code') {
             steps {
                 git branch: 'main',
@@ -13,25 +15,36 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build Docker Image') {
             steps {
-                sh 'npm install'
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
-        stage('Build React App') {
+        stage('Stop Old Container') {
             steps {
-                sh 'npm run build'
+                sh '''
+                docker stop $CONTAINER_NAME || true
+                docker rm $CONTAINER_NAME || true
+                '''
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh '''
+                docker run -d -p 5173:5173 --name $CONTAINER_NAME $IMAGE_NAME
+                '''
             }
         }
     }
 
     post {
         success {
-            echo 'React build successful 🎉'
+            echo 'React app deployed using Docker successfully 🎉'
         }
         failure {
-            echo 'Build failed ❌'
+            echo 'Deployment failed ❌'
         }
     }
 }
