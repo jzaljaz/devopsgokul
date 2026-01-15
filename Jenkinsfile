@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "react-app"
-        CONTAINER_NAME = "exciting_joliot"
+        CONTAINER_NAME = "blissful_pascal"
+        PATH = "/usr/local/bin:/opt/homebrew/bin:/bin:/usr/bin"
     }
 
     stages {
@@ -41,7 +42,7 @@ pipeline {
 
     post {
         success {
-            echo 'React app deployed using Docker successfully 🎉'
+            echo 'Deployment successful 🎉'
         }
         failure {
             echo 'Deployment failed ❌'
