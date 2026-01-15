@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "react-app"
-        CONTAINER_NAME = "competent_thompson"
+        CONTAINER_NAME = "silly_wescoff"
     }
 
     stages {
