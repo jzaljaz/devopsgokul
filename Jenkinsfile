@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "react-app"
-        CONTAINER_NAME = "blissful_pascal"
+        CONTAINER_NAME = "exciting_joliot"
         PATH = "/usr/local/bin:/opt/homebrew/bin:/bin:/usr/bin"
     }
 
